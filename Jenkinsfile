@@ -11,6 +11,7 @@ pipeline {
                     def GIT_REPO_NAME = scm.userRemoteConfigs[0].getUrl().tokenize('/').last().split("\\.")[0]
                     def scannerHome = tool 'sonar_scanner'
                     def SONAR_BRANCH_NAME = env.BRANCH_NAME
+                    echo SONAR_BRANCH_NAME
                     withSonarQubeEnv(pipelineConfig.sonarQubeServer) {
                         sh "sed -i s#{{repo_name}}#${GIT_REPO_NAME}# sonar-project.properties"
                         sh "sed -i s#{{branch_name}}#${SONAR_BRANCH_NAME}# sonar-project.properties"
